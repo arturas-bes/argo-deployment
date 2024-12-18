@@ -1,0 +1,21 @@
+apiVersion: symfony-service-proj.io/v1alpha1
+kind: Application
+metadata:
+    name: symfony-service-application
+    namespace:  symfonyapp
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/arturas-bes/symfony-service-deployment.git
+    targetRevision: HEAD
+    path: dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: symfonyapp
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
