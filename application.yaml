@@ -1,21 +1,23 @@
-apiVersion: symfony-service-proj.io/v1alpha1
+apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-    name: symfony-service-application
-    namespace:  symfonyapp
+  name: myapp-argo-application
+  namespace: argocd
 spec:
   project: default
 
   source:
-    repoURL: https://github.com/arturas-bes/symfony-service-deployment.git
+    repoURL: https://gitlab.com/nanuchi/argocd-app-config.git
     targetRevision: HEAD
     path: dev
   destination:
     server: https://kubernetes.default.svc
-    namespace: symfonyapp
+    namespace: myapp
+
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
+
     automated:
-      prune: true
       selfHeal: true
+      prune: true
